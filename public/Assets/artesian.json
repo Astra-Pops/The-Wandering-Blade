@@ -1,0 +1,188 @@
+{
+    "name": "Artesian",
+    "description": "A small village known for its bread-making tradition.",
+    "landmarks": [
+        {
+            "name": "Grain Mill",
+            "type": "building",
+            "location": {
+                "x": 150,
+                "y": 100
+            }
+        },
+        {
+            "name": "Baker\u2019s Guild",
+            "type": "guild",
+            "location": {
+                "x": 180,
+                "y": 120
+            }
+        },
+        {
+            "name": "Town Square",
+            "type": "public_area",
+            "location": {
+                "x": 220,
+                "y": 150
+            }
+        },
+        {
+            "name": "Old Bakery",
+            "type": "historical_building",
+            "location": {
+                "x": 250,
+                "y": 200
+            }
+        },
+        {
+            "name": "Artesian River",
+            "type": "waterway",
+            "location": {
+                "x": 300,
+                "y": 250
+            }
+        },
+        {
+            "name": "The Doughy Bread Tavern",
+            "type": "tavern",
+            "location": {
+                "x": 350,
+                "y": 280
+            }
+        },
+        {
+            "name": "Church of Grain",
+            "type": "church",
+            "location": {
+                "x": 380,
+                "y": 300
+            }
+        },
+        {
+            "name": "Watchtower",
+            "type": "tower",
+            "location": {
+                "x": 400,
+                "y": 350
+            }
+        }
+    ],
+    "buildings": [
+        {
+            "name": "Grain Mill",
+            "type": "production",
+            "size": "large",
+            "resources": [
+                "grain",
+                "flour"
+            ]
+        },
+        {
+            "name": "Baker\u2019s Guild",
+            "type": "guild",
+            "size": "medium",
+            "resources": [
+                "bakery expertise",
+                "recipes"
+            ]
+        },
+        {
+            "name": "Old Bakery",
+            "type": "historical",
+            "size": "small",
+            "resources": [
+                "historical records"
+            ]
+        },
+        {
+            "name": "The Doughy Bread Tavern",
+            "type": "social",
+            "size": "medium",
+            "resources": [
+                "mead",
+                "bread",
+                "food"
+            ]
+        },
+        {
+            "name": "Church of Grain",
+            "type": "religious",
+            "size": "medium",
+            "resources": [
+                "religious books",
+                "blessings"
+            ]
+        },
+        {
+            "name": "Watchtower",
+            "type": "defense",
+            "size": "small",
+            "resources": [
+                "sentry posts",
+                "viewing area"
+            ]
+        }
+    ],
+    "paths": [
+        {
+            "start": {
+                "x": 150,
+                "y": 100
+            },
+            "end": {
+                "x": 220,
+                "y": 150
+            },
+            "type": "dirt_road",
+            "name": "Mill to Town Square"
+        },
+        {
+            "start": {
+                "x": 220,
+                "y": 150
+            },
+            "end": {
+                "x": 350,
+                "y": 280
+            },
+            "type": "cobblestone",
+            "name": "Town Square to Tavern"
+        },
+        {
+            "start": {
+                "x": 220,
+                "y": 150
+            },
+            "end": {
+                "x": 380,
+                "y": 300
+            },
+            "type": "stone_path",
+            "name": "Town Square to Church"
+        },
+        {
+            "start": {
+                "x": 250,
+                "y": 200
+            },
+            "end": {
+                "x": 300,
+                "y": 250
+            },
+            "type": "wooden_bridge",
+            "name": "Old Bakery to River"
+        },
+        {
+            "start": {
+                "x": 380,
+                "y": 300
+            },
+            "end": {
+                "x": 400,
+                "y": 350
+            },
+            "type": "dirt_road",
+            "name": "Church to Watchtower"
+        }
+    ]
+}
