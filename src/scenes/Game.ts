@@ -1,82 +1,272 @@
 // src/scenes/Game.ts
-import { Scene } from 'phaser';
+import Phaser from 'phaser';
 
-export class Game extends Scene {
-    private player!: Phaser.Physics.Arcade.Sprite;
-    private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
+type TiledProp = { name: string; type?: string; value: any };
+const propsToObj = (ps?: TiledProp[]) =>
+  (ps || []).reduce((a, p) => ((a[p.name] = p.value), a), {} as Record<string, any>);
 
-    constructor() {
-        super('Game');
+const FRAME_W = 64;
+const FRAME_H = 64;
+
+const HERO_BASE = 'Assets/Entities/Characters/Body_A/Animations';
+
+const k = {
+  idleDown: 'hero_idle_down',
+  idleUp: 'hero_idle_up',
+  idleSide: 'hero_idle_side',
+  walkDown: 'hero_walk_down',
+  walkUp: 'hero_walk_up',
+  walkSide: 'hero_walk_side',
+  runDown: 'hero_run_down',
+  runUp: 'hero_run_up',
+  runSide: 'hero_run_side',
+};
+
+export class Game extends Phaser.Scene {
+  private player!: Phaser.Physics.Arcade.Sprite;
+  private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
+  private doorBodies: Phaser.GameObjects.Rectangle[] = [];
+  private facing: 'down' | 'up' | 'side' = 'down';
+
+  private current!: {
+    map: Phaser.Tilemaps.Tilemap;
+    tiles?: Phaser.Tilemaps.Tileset; // optional now
+    layers: {
+      ground?: Phaser.Tilemaps.TilemapLayer | null;
+      decor?: Phaser.Tilemaps.TilemapLayer | null;
+      buildings?: Phaser.Tilemaps.TilemapLayer | null;
+      walls?: Phaser.Tilemaps.TilemapLayer | null;
+    };
+    doors: any[];
+  };
+
+  private errorText?: Phaser.GameObjects.Text;
+
+  constructor() { super('Game'); }
+
+  private showError(msg: string) {
+    console.error('[ARTESIAN ERROR]', msg);
+    if (this.errorText) this.errorText.destroy();
+    this.errorText = this.add.text(16, 16, msg, {
+      fontFamily: 'monospace', fontSize: '14px', color: '#fff', backgroundColor: '#a00'
+    }).setScrollFactor(0).setDepth(9999);
+  }
+
+  preload() {
+    // Loud load errors
+    this.load.on('loaderror', (_file: any, key: string, type: string) => {
+      this.showError(`Load error: key=${key} type=${type} (check path/case under public/Assets/…)`);
+    });
+
+    // --- Maps ---
+    this.load.tilemapTiledJSON('artesian',        'Assets/Maps/Artesian/artesian_map.tmj');
+    this.load.tilemapTiledJSON('tavern_interior', 'Assets/Maps/Artesian/tavern_interior.tmj');
+    this.load.tilemapTiledJSON('bakery_interior', 'Assets/Maps/Artesian/bakery_interior.tmj');
+    this.load.tilemapTiledJSON('guild_interior',  'Assets/Maps/Artesian/guild_interior.tmj');
+    this.load.tilemapTiledJSON('church_interior', 'Assets/Maps/Artesian/church_interior.tmj');
+    this.load.tilemapTiledJSON('mill_interior',   'Assets/Maps/Artesian/mill_interior.tmj');
+
+    // Tileset image (the name used below must match <tileset name="…"> in the TMJ/TSX;
+    // we’ll actually auto-detect the name, so the image key can be anything)
+    this.load.image('artesian_tiles', 'Assets/Maps/Artesian/artesian_tileset.png');
+
+    // --- Hero sheets ---
+    const HERO_BASE = 'Assets/Entities/Characters/Body_A/Animations';
+
+    this.load.spritesheet(k.idleDown, `${HERO_BASE}/Idle_Base/Idle_Down-Sheet.png`, { frameWidth: FRAME_W, frameHeight: FRAME_H });
+    this.load.spritesheet(k.idleUp,   `${HERO_BASE}/Idle_Base/Idle_Up-Sheet.png`,   { frameWidth: FRAME_W, frameHeight: FRAME_H });
+    this.load.spritesheet(k.idleSide, `${HERO_BASE}/Idle_Base/Idle_Side-Sheet.png`, { frameWidth: FRAME_W, frameHeight: FRAME_H });
+
+    this.load.spritesheet(k.walkDown, `${HERO_BASE}/Walk_Base/Walk_Down-Sheet.png`, { frameWidth: FRAME_W, frameHeight: FRAME_H });
+    this.load.spritesheet(k.walkUp,   `${HERO_BASE}/Walk_Base/Walk_Up-Sheet.png`,   { frameWidth: FRAME_W, frameHeight: FRAME_H });
+    this.load.spritesheet(k.walkSide, `${HERO_BASE}/Walk_Base/Walk_Side-Sheet.png`, { frameWidth: FRAME_W, frameHeight: FRAME_H });
+
+    this.load.spritesheet(k.runDown,  `${HERO_BASE}/Run_Base/Run_Down-Sheet.png`,   { frameWidth: FRAME_W, frameHeight: FRAME_H });
+    this.load.spritesheet(k.runUp,    `${HERO_BASE}/Run_Base/Run_Up-Sheet.png`,     { frameWidth: FRAME_W, frameHeight: FRAME_H });
+    this.load.spritesheet(k.runSide,  `${HERO_BASE}/Run_Base/Run_Side-Sheet.png`,   { frameWidth: FRAME_W, frameHeight: FRAME_H });
+  }
+  
+  create() {
+    // Sanity text so you *always* see the scene is running
+    this.add.text(8, 8, 'Scene OK', { color: '#fff' }).setScrollFactor(0).setDepth(9998);
+
+    this.buildMap('artesian');
+    this.makeHeroAnims();
+
+    // Hero
+    const startX = 31 * 16, startY = 35 * 16;
+    this.player = this.physics.add.sprite(startX, startY, k.idleDown, 0).setDepth(10);
+
+    const body = this.player.body as Phaser.Physics.Arcade.Body;
+    body.setSize(16, 16).setOffset((FRAME_W - 16) / 2, FRAME_H - 16);
+    body.setCollideWorldBounds(true);
+
+    this.cameras.main.startFollow(this.player, true, 0.15, 0.15);
+
+    // Colliders (guard nulls to satisfy TS)
+    const b = this.current.layers.buildings;
+    const w = this.current.layers.walls;
+    if (b) this.physics.add.collider(this.player, b);
+    if (w) this.physics.add.collider(this.player, w);
+
+    const kb = this.input?.keyboard;
+    if (!kb) throw new Error('Phaser Keyboard plugin not available.');
+    this.cursors = kb.createCursorKeys();
+
+
+    this.attachDoorOverlaps();
+    this.playIdle('down');
+
+    // If layers missing, prompt to check URLs
+    if (!this.current.layers.ground && !this.current.layers.buildings && !this.current.layers.walls) {
+      this.showError('No tile layers created. Open devtools → Network and load:\n' +
+        'Assets/Maps/Artesian/artesian_map.tmj\nAssets/Maps/Artesian/artesian_tileset.png');
+    }
+  }
+
+  update() {
+    const run = this.cursors.shift?.isDown;
+    const speed = run ? 220 : 140;
+
+    let vx = 0, vy = 0;
+    if (this.cursors.left?.isDown)  vx = -speed;
+    else if (this.cursors.right?.isDown) vx = speed;
+    if (this.cursors.up?.isDown)    vy = -speed;
+    else if (this.cursors.down?.isDown)  vy = speed;
+
+    this.player.setVelocity(vx, vy);
+
+    if (vx === 0 && vy === 0) { this.playIdle(this.facing); return; }
+
+    if (Math.abs(vx) > Math.abs(vy)) { this.facing = 'side'; this.player.setFlipX(vx < 0); }
+    else if (vy > 0) { this.facing = 'down'; this.player.setFlipX(false); }
+    else { this.facing = 'up'; this.player.setFlipX(false); }
+
+    run ? this.playRun(this.facing) : this.playWalk(this.facing);
+  }
+
+  // ------------ map helpers ------------
+
+  private buildMap(key: string) {
+    // Cleanup previous
+    if (this.current) {
+      Object.values(this.current.layers).forEach(l => l && l.destroy());
+      this.doorBodies.forEach(r => r.destroy());
+      this.doorBodies = [];
     }
 
-    preload() {
-        // --- Load Character Assets ---
-        const frameW = 64;
-        const frameH = 64;
-        this.load.spritesheet('player-down', 'Assets/Entities/Characters/Body_A/Animations/Walk_Base/Walk_Down-Sheet.png', { frameWidth: frameW, frameHeight: frameH });
-        this.load.spritesheet('player-up', 'Assets/Entities/Characters/Body_A/Animations/Walk_Base/Walk_Up-Sheet.png', { frameWidth: frameW, frameHeight: frameH });
-        this.load.spritesheet('player-side', 'Assets/Entities/Characters/Body_A/Animations/Walk_Base/Walk_Side-Sheet.png', { frameWidth: frameW, frameHeight: frameH });
+    const map = this.make.tilemap({ key });
 
-        // --- Load World Assets ---
-        // Load the tileset images. The first name ('structures', 'vegetation') is a nickname we give it.
-        // The second is the path to the file.
-        this.load.image('structures', 'Assets/Environment/Structures/Buildings/Walls.png');
-        this.load.image('floors', 'Assets/Environment/Tilesets/Floors_Tiles.png');
-        this.load.image('vegetation', 'Assets/Environment/Props/Static/Vegetation.png');
-        
-        // Load the map data file you created in Tiled
-        this.load.tilemapTiledJSON('artesian-map', 'Assets/Maps/artesian.json');
+    // Auto-detect the tileset name from the map (so it works even if you renamed it in Tiled)
+    const tilesetName = map.tilesets[0]?.name ?? 'artesian_tileset';
+
+    const tilesMaybe = map.addTilesetImage(tilesetName, 'artesian_tiles');
+    if (!tilesMaybe) {
+      this.showError(`Tileset missing: map expects "${tilesetName}" and image key "artesian_tiles".`);
     }
+    const tiles = tilesMaybe ?? undefined;
 
-    create() {
-        // --- Create the World ---
-        const map = this.make.tilemap({ key: 'artesian-map' });
+    const ground    = tiles && map.getLayerIndex('Ground')    !== -1 ? map.createLayer('Ground', tiles, 0, 0) : null;
+    const decor     = tiles && map.getLayerIndex('Decor')     !== -1 ? map.createLayer('Decor', tiles, 0, 0) : null;
+    const buildings = tiles && map.getLayerIndex('Buildings') !== -1 ? map.createLayer('Buildings', tiles, 0, 0) : null;
+    const walls     = tiles && map.getLayerIndex('Walls')     !== -1 ? map.createLayer('Walls', tiles, 0, 0) : null;
 
-        // Add the tilesets to the map. The first name MUST match the tileset name you used in Tiled.
-        const tilesetStructures = map.addTilesetImage('Walls', 'structures');
-        const tilesetFloors = map.addTilesetImage('Floors_Tiles', 'floors');
-        const tilesetVegetation = map.addTilesetImage('Vegetation', 'vegetation');
+    if (buildings) buildings.setCollisionByProperty({ collidable: true });
+    if (walls)     walls.setCollisionByProperty({ collidable: true });
 
-        // Create the layers. The name MUST match the layer name you used in Tiled.
-        const groundLayer = map.createLayer('Ground', [tilesetFloors, tilesetVegetation], 0, 0);
-        const buildingsLayer = map.createLayer('Buildings', [tilesetStructures], 0, 0);
+    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+    this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
-        // --- Create the Player ---
-        // Find the "PlayerStart" object we placed in Tiled
-        const spawnPoint = map.findObject('Spawns', obj => obj.name === 'PlayerStart');
-        
-        // Create the player at that spawn point
-        this.player = this.physics.add.sprite(spawnPoint.x, spawnPoint.y, 'player-down');
+    const doorsLayer = map.getObjectLayer('Doors');
 
-        // --- Physics and Camera ---
-        // Set collisions. Any tile in the 'Buildings' layer will be solid.
-        buildingsLayer.setCollisionByExclusion([-1]);
-        this.physics.add.collider(this.player, buildingsLayer);
+    this.current = {
+      map,
+      tiles,
+      layers: { ground, decor, buildings, walls },
+      doors: doorsLayer?.objects || []
+    };
+  }
 
-        // Make the camera follow the player
-        this.cameras.main.startFollow(this.player, true);
-        this.cameras.main.setZoom(2); // Zoom in for a classic RPG feel
-
-        // --- Animations and Controls (same as before) ---
-        this.cursors = this.input.keyboard.createCursorKeys();
-        // ... (animation creation code from previous step) ...
-        this.anims.create({ key: 'down-walk', frames: this.anims.generateFrameNumbers('player-down', { start: 0, end: -1 }), frameRate: 10, repeat: -1 });
-        this.anims.create({ key: 'up-walk', frames: this.anims.generateFrameNumbers('player-up', { start: 0, end: -1 }), frameRate: 10, repeat: -1 });
-        this.anims.create({ key: 'side-walk', frames: this.anims.generateFrameNumbers('player-side', { start: 0, end: -1 }), frameRate: 10, repeat: -1 });
-        this.anims.create({ key: 'idle', frames: [{ key: 'player-down', frame: 0 }], frameRate: 20 });
+  private attachDoorOverlaps() {
+    for (const d of this.current.doors) {
+      const r = this.add.rectangle(
+        d.x + d.width / 2,
+        d.y + d.height / 2,
+        d.width,
+        d.height,
+        0x00ff00,
+        0
+      ) as Phaser.GameObjects.Rectangle;
+      this.physics.add.existing(r, true);
+      this.physics.add.overlap(this.player, r, () => this.enterDoor(d));
+      this.doorBodies.push(r);
     }
+  }
 
-    update() {
-        // ... (update code with player movement is exactly the same as before) ...
-        const speed = 200;
-        this.player.setVelocity(0);
+  private enterDoor(doorObj: any) {
+  const p = propsToObj(doorObj.properties);
+  const targetKey = (p.targetMap as string)?.replace('.tmj', '');
+  if (!targetKey) return;
 
-        if (this.cursors.left.isDown) { this.player.setVelocityX(-speed); this.player.anims.play('side-walk', true); this.player.setFlipX(true); } 
-        else if (this.cursors.right.isDown) { this.player.setVelocityX(speed); this.player.anims.play('side-walk', true); this.player.setFlipX(false); } 
-        else if (this.cursors.up.isDown) { this.player.setVelocityY(-speed); this.player.anims.play('up-walk', true); } 
-        else if (this.cursors.down.isDown) { this.player.setVelocityY(speed); this.player.anims.play('down-walk', true); } 
-        else { this.player.anims.play('idle'); }
+  this.buildMap(targetKey);
 
-        if (this.cursors.up.isDown || this.cursors.down.isDown || (!this.cursors.left.isDown && !this.cursors.right.isDown)) { this.player.setFlipX(false); }
+  // resolve spawn safely
+  let sx: number | undefined = p.targetX;
+  let sy: number | undefined = p.targetY;
+
+  if (sx == null || sy == null) {
+    const spawnName = (p.targetSpawn as string) || 'spawn';
+    const spawnLayer = this.current.map.getObjectLayer('Objects');
+    const spawnObj = spawnLayer && Array.isArray(spawnLayer.objects)
+      ? spawnLayer.objects.find((o: any) => o?.name === spawnName)
+      : undefined;
+
+    if (spawnObj && typeof spawnObj.x === 'number' && typeof spawnObj.y === 'number') {
+      sx = spawnObj.x; sy = spawnObj.y;
+    } else {
+      sx = 64; sy = 64; // safe fallback
     }
+  }
+
+  this.player.setPosition(sx!, sy!);
+
+  const b = this.current.layers.buildings;
+  const w = this.current.layers.walls;
+  if (b) this.physics.add.collider(this.player, b);
+  if (w) this.physics.add.collider(this.player, w);
+
+  this.attachDoorOverlaps();
+  this.playIdle(this.facing);
+}
+
+
+  // ------------ hero animations ------------
+
+  private makeHeroAnims() {
+    const mk = (key: string, sheetKey: string, rate = 8) => {
+      if (this.anims.exists(key)) return;
+      this.anims.create({
+        key,
+        frames: this.anims.generateFrameNumbers(sheetKey, {}),
+        frameRate: rate,
+        repeat: -1
+      });
+    };
+
+    mk('idle_down', k.idleDown, 4);
+    mk('idle_up',   k.idleUp,   4);
+    mk('idle_side', k.idleSide, 4);
+
+    mk('walk_down', k.walkDown, 8);
+    mk('walk_up',   k.walkUp,   8);
+    mk('walk_side', k.walkSide, 8);
+
+    mk('run_down',  k.runDown, 12);
+    mk('run_up',    k.runUp,   12);
+    mk('run_side',  k.runSide, 12);
+  }
+
+  private playIdle(dir: 'down' | 'up' | 'side') { this.player.play(`idle_${dir}`, true); }
+  private playWalk(dir: 'down' | 'up' | 'side') { this.player.play(`walk_${dir}`, true); }
+  private playRun(dir: 'down' | 'up' | 'side')  { this.player.play(`run_${dir}`, true); }
 }
