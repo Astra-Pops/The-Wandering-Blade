@@ -1,0 +1,2 @@
+<?xml version='1.0' encoding='utf-8'?>
+<tileset version="1.10" tiledversion="1.10.2" name="Size_04-export" tilewidth="16" tileheight="16" tilecount="468" columns="18"><image source="Size_04-export.png" width="288" height="416" /></tileset>

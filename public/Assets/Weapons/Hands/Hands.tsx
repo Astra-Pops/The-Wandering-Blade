@@ -1,0 +1,2 @@
+<?xml version='1.0' encoding='utf-8'?>
+<tileset version="1.10" tiledversion="1.10.2" name="Hands" tilewidth="16" tileheight="16" tilecount="12" columns="2"><image source="Hands.png" width="32" height="96" /></tileset>

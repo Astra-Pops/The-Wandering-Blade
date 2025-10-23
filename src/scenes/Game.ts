@@ -65,6 +65,9 @@ export class Game extends Phaser.Scene {
     this.load.tilemapTiledJSON('guild_interior',  'Assets/Maps/Artesian/guild_interior.tmj');
     this.load.tilemapTiledJSON('church_interior', 'Assets/Maps/Artesian/church_interior.tmj');
     this.load.tilemapTiledJSON('mill_interior',   'Assets/Maps/Artesian/mill_interior.tmj');
+    // preload()
+    this.load.image('mc_house_tileset', 'Assets/Maps/Artesian/mc_house_tileset.png');
+    this.load.tilemapTiledJSON('mc_house_interior', 'Assets/Maps/Artesian/mc_house_interior.tmj');
 
     // Tileset image (the name used below must match <tileset name="…"> in the TMJ/TSX;
     // we’ll actually auto-detect the name, so the image key can be anything)
