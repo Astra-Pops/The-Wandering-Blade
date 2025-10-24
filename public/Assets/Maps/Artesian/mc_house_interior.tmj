@@ -3,8 +3,8 @@
   "height": 24,
   "width": 30,
   "infinite": false,
-  "nextlayerid": 6,
-  "nextobjectid": 96,
+  "nextlayerid": 7,
+  "nextobjectid": 97,
   "orientation": "orthogonal",
   "renderorder": "right-down",
   "tiledversion": "1.10.2",
@@ -4168,6 +4168,26 @@
       ],
       "opacity": 1,
       "visible": true
+    },
+    {
+      "id": 6,
+      "name": "Spawns",
+      "type": "objectgroup",
+      "objects": [
+        {
+          "height": 0,
+          "width": 0,
+          "rotation": 0,
+          "visible": true,
+          "id": 1,
+          "name": "house_exit",
+          "type": "point",
+          "x": 248,
+          "y": 320
+        }
+      ],
+      "visible": true,
+      "opacity": 1
     }
   ]
 }
