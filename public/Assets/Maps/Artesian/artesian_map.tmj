@@ -181919,6 +181919,29 @@
               "value": "spawn"
             }
           ]
+        },
+        {
+          "height": 16,
+          "width": 16,
+          "rotation": 0,
+          "visible": true,
+          "id": 2,
+          "name": "house_entrance",
+          "type": "door",
+          "x": 960,
+          "y": 1088,
+          "properties": [
+            {
+              "name": "targetMap",
+              "type": "string",
+              "value": "mc_house_interior.tmj"
+            },
+            {
+              "name": "targetSpawn",
+              "type": "string",
+              "value": "house_exit"
+            }
+          ]
         }
       ],
       "visible": true,

@@ -98,7 +98,7 @@ export class Game extends Phaser.Scene {
 
     this.buildMap('artesian');
     // Standardize tileset args, layers, collisions, and roofs
-    this.applyStandardMapWiring(this.currentMap);
+    this.applyStandardMapWiring(this.current);
     this.makeHeroAnims();
 
     // Hero
@@ -179,7 +179,7 @@ export class Game extends Phaser.Scene {
     const buildings = tiles && map.getLayerIndex('Buildings') !== -1 ? map.createLayer('Buildings', tiles, 0, 0) : null;
     const walls     = tiles && map.getLayerIndex('Walls')     !== -1 ? map.createLayer('Walls', tiles, 0, 0) : null;
 
-    if (buildings) buildings.setCollisionByProperty({ collidable: true });
+    if (buildings) if (buildings) buildings.setCollisionByProperty({ collidable: true });
     if (walls)     walls.setCollisionByProperty({ collidable: true });
 
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
@@ -212,8 +212,7 @@ export class Game extends Phaser.Scene {
   }
 
   private enterDoor(doorObj: any) {
-  console.debug('[Door] Entering', door?.name, door?.type, door?.properties);
-const p = propsToObj(doorObj.properties);
+  const p = propsToObj(doorObj.properties);
   const targetKey = (p.targetMap as string)?.replace('.tmj', '');
   if (!targetKey) return;
 
@@ -301,12 +300,12 @@ const p = propsToObj(doorObj.properties);
       const deco       = map.getLayer('Deco')?.tilemapLayer   || map.createLayer('Deco', tileset);
 
       // Collisions by property (standardized name "collidable")
-      buildings.setCollisionByProperty({ collidable: true });
-      obstacles.setCollisionByProperty({ collidable: true });
-      water.setCollisionByProperty({ collidable: true });
+      if (buildings) buildings.setCollisionByProperty({ collidable: true });
+      if (obstacles) obstacles.setCollisionByProperty({ collidable: true });
+      if (water) water.setCollisionByProperty({ collidable: true });
 
       // Roofs above player
-      roofs.setDepth(1000);
+      if (roofs) roofs.setDepth(1000);
 
       console.log('[Map OK]', map.width, 'x', map.height, 'tileset:', tilesetName, 'layers:', map.layers.map(l=>l.name));
     } catch (e) {
