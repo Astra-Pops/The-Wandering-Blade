@@ -13,7 +13,1446 @@
   "tilesets": [
     {
       "firstgid": 1,
-      "source": "artesian_tileset.tsx"
+      "name": "artesian_tileset",
+      "tilewidth": 16,
+      "tileheight": 16,
+      "tilecount": 4096,
+      "columns": 64,
+      "image": "artesian_tileset.png",
+      "imagewidth": 1024,
+      "imageheight": 1024,
+      "tiles": [
+        {
+          "id": 42,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "wall"
+            },
+            {
+              "name": "collidable",
+              "type": "bool",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": 43,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "wall"
+            },
+            {
+              "name": "collidable",
+              "type": "bool",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": 44,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "wall"
+            },
+            {
+              "name": "collidable",
+              "type": "bool",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": 45,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "wall"
+            },
+            {
+              "name": "collidable",
+              "type": "bool",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": 57,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "tree"
+            },
+            {
+              "name": "collidable",
+              "type": "bool",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": 58,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "bush"
+            },
+            {
+              "name": "collidable",
+              "type": "bool",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": 59,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "fence"
+            },
+            {
+              "name": "collidable",
+              "type": "bool",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": 60,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "sign"
+            }
+          ]
+        },
+        {
+          "id": 62,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "dock"
+            }
+          ]
+        },
+        {
+          "id": 61,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "bridge"
+            }
+          ]
+        },
+        {
+          "id": 52,
+          "properties": [
+            {
+              "name": "door",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "door"
+            }
+          ]
+        },
+        {
+          "id": 53,
+          "properties": [
+            {
+              "name": "door",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "door"
+            }
+          ]
+        },
+        {
+          "id": 54,
+          "properties": [
+            {
+              "name": "door",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "door"
+            }
+          ]
+        },
+        {
+          "id": 30,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "water"
+            },
+            {
+              "name": "collidable",
+              "type": "bool",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": 31,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "water"
+            },
+            {
+              "name": "collidable",
+              "type": "bool",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": 32,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "water"
+            },
+            {
+              "name": "collidable",
+              "type": "bool",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": 33,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "water"
+            },
+            {
+              "name": "collidable",
+              "type": "bool",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "road"
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "road"
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "road"
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "road"
+            }
+          ]
+        },
+        {
+          "id": 18,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "road"
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "road"
+            }
+          ]
+        },
+        {
+          "id": 20,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "road"
+            }
+          ]
+        },
+        {
+          "id": 21,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "road"
+            }
+          ]
+        },
+        {
+          "id": 22,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "road"
+            }
+          ]
+        },
+        {
+          "id": 23,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "road"
+            }
+          ]
+        },
+        {
+          "id": 24,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "road"
+            }
+          ]
+        },
+        {
+          "id": 25,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "road"
+            }
+          ]
+        },
+        {
+          "id": 26,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "road"
+            }
+          ]
+        },
+        {
+          "id": 27,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "road"
+            }
+          ]
+        },
+        {
+          "id": 28,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "road"
+            }
+          ]
+        },
+        {
+          "id": 29,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "road"
+            }
+          ]
+        },
+        {
+          "id": 0,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "grass"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "grass"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "grass"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "grass"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "grass"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "grass"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "grass"
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "grass"
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "dirt_path"
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "dirt_path"
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "dirt_path"
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "dirt_path"
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "dirt_path"
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "dirt_path"
+            }
+          ]
+        },
+        {
+          "id": 46,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "roof"
+            }
+          ]
+        },
+        {
+          "id": 47,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "roof"
+            }
+          ]
+        },
+        {
+          "id": 48,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "roof"
+            }
+          ]
+        },
+        {
+          "id": 49,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "roof"
+            }
+          ]
+        },
+        {
+          "id": 50,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "roof"
+            }
+          ]
+        },
+        {
+          "id": 51,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "roof"
+            }
+          ]
+        },
+        {
+          "id": 63,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "farm"
+            }
+          ]
+        },
+        {
+          "id": 64,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "flower"
+            }
+          ]
+        },
+        {
+          "id": 38,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "sand"
+            }
+          ]
+        },
+        {
+          "id": 39,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "sand"
+            }
+          ]
+        },
+        {
+          "id": 40,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "sand"
+            }
+          ]
+        },
+        {
+          "id": 41,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "sand"
+            }
+          ]
+        },
+        {
+          "id": 34,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "shore"
+            }
+          ]
+        },
+        {
+          "id": 35,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "shore"
+            }
+          ]
+        },
+        {
+          "id": 36,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "shore"
+            }
+          ]
+        },
+        {
+          "id": 37,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "shore"
+            }
+          ]
+        },
+        {
+          "id": 65,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "building_part"
+            }
+          ]
+        },
+        {
+          "id": 66,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "building_part"
+            }
+          ]
+        },
+        {
+          "id": 67,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "building_part"
+            }
+          ]
+        },
+        {
+          "id": 68,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "building_part"
+            }
+          ]
+        },
+        {
+          "id": 69,
+          "properties": [
+            {
+              "name": "collision",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "walkable",
+              "type": "bool",
+              "value": false
+            },
+            {
+              "name": "tag",
+              "type": "string",
+              "value": "building_part"
+            }
+          ]
+        }
+      ]
     }
   ],
   "layers": [

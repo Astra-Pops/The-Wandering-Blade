@@ -3,8 +3,8 @@
   "height": 128,
   "width": 128,
   "infinite": false,
-  "nextlayerid": 12,
-  "nextobjectid": 1,
+  "nextlayerid": 13,
+  "nextobjectid": 2,
   "orientation": "orthogonal",
   "renderorder": "right-down",
   "tiledversion": "1.10.2",
@@ -181836,6 +181836,38 @@
         0,
         0
       ]
+    },
+    {
+      "id": 12,
+      "name": "Doors",
+      "type": "objectgroup",
+      "objects": [
+        {
+          "height": 16,
+          "width": 16,
+          "rotation": 0,
+          "visible": true,
+          "id": 1,
+          "name": "bakery_entrance",
+          "type": "door",
+          "x": 992,
+          "y": 928,
+          "properties": [
+            {
+              "name": "targetMap",
+              "type": "string",
+              "value": "bakery_interior.tmj"
+            },
+            {
+              "name": "targetSpawn",
+              "type": "string",
+              "value": "spawn"
+            }
+          ]
+        }
+      ],
+      "visible": true,
+      "opacity": 1
     }
   ]
 }
