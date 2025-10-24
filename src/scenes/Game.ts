@@ -53,6 +53,10 @@ export class Game extends Phaser.Scene {
   }
 
   preload() {
+    // Ensure current tileset image (cache-busted)
+    this.load.image('artesian_tileset', 'Assets/Maps/Artesian/artesian_tileset.png?v=5');
+    // Ensure current TMJ (cache-busted)
+    this.load.tilemapTiledJSON('artesian_map', 'Assets/Maps/Artesian/artesian_map.tmj?v=5');
     // Loud load errors
     this.load.on('loaderror', (_file: any, key: string, type: string) => {
       this.showError(`Load error: key=${key} type=${type} (check path/case under public/Assets/…)`);
@@ -93,6 +97,8 @@ export class Game extends Phaser.Scene {
     this.add.text(8, 8, 'Scene OK', { color: '#fff' }).setScrollFactor(0).setDepth(9998);
 
     this.buildMap('artesian');
+    // Standardize tileset args, layers, collisions, and roofs
+    this.applyStandardMapWiring(this.currentMap);
     this.makeHeroAnims();
 
     // Hero
@@ -206,7 +212,8 @@ export class Game extends Phaser.Scene {
   }
 
   private enterDoor(doorObj: any) {
-  const p = propsToObj(doorObj.properties);
+  console.debug('[Door] Entering', door?.name, door?.type, door?.properties);
+const p = propsToObj(doorObj.properties);
   const targetKey = (p.targetMap as string)?.replace('.tmj', '');
   if (!targetKey) return;
 
@@ -271,4 +278,40 @@ export class Game extends Phaser.Scene {
   private playIdle(dir: 'down' | 'up' | 'side') { this.player.play(`idle_${dir}`, true); }
   private playWalk(dir: 'down' | 'up' | 'side') { this.player.play(`walk_${dir}`, true); }
   private playRun(dir: 'down' | 'up' | 'side')  { this.player.play(`run_${dir}`, true); }
+
+  private applyStandardMapWiring(map: Phaser.Tilemaps.Tilemap) {
+    try {
+      const tilesetName = map.tilesets?.[0]?.name || 'artesian_tileset';
+      const tileset = map.addTilesetImage(tilesetName, tilesetName);
+      if (!tileset) {
+        console.warn('Tileset missing or mismatched. tilesetName=', tilesetName);
+        return;
+      }
+      const must = ['Ground','Water','Shores','Roads','Buildings','Roofs','Obstacles','Deco'];
+      const haveNames = map.layers.map(l => l.name);
+      must.forEach(n => { if (!haveNames.includes(n)) { map.createBlankLayer(n, tileset, 0, 0); }});
+
+      const ground     = map.getLayer('Ground')?.tilemapLayer || map.createLayer('Ground', tileset);
+      const water      = map.getLayer('Water')?.tilemapLayer  || map.createLayer('Water', tileset);
+      const shores     = map.getLayer('Shores')?.tilemapLayer || map.createLayer('Shores', tileset);
+      const roads      = map.getLayer('Roads')?.tilemapLayer  || map.createLayer('Roads', tileset);
+      const buildings  = map.getLayer('Buildings')?.tilemapLayer || map.createLayer('Buildings', tileset);
+      const roofs      = map.getLayer('Roofs')?.tilemapLayer  || map.createLayer('Roofs', tileset);
+      const obstacles  = map.getLayer('Obstacles')?.tilemapLayer || map.createLayer('Obstacles', tileset);
+      const deco       = map.getLayer('Deco')?.tilemapLayer   || map.createLayer('Deco', tileset);
+
+      // Collisions by property (standardized name "collidable")
+      buildings.setCollisionByProperty({ collidable: true });
+      obstacles.setCollisionByProperty({ collidable: true });
+      water.setCollisionByProperty({ collidable: true });
+
+      // Roofs above player
+      roofs.setDepth(1000);
+
+      console.log('[Map OK]', map.width, 'x', map.height, 'tileset:', tilesetName, 'layers:', map.layers.map(l=>l.name));
+    } catch (e) {
+      console.error('applyStandardMapWiring error:', e);
+    }
+  }
+
 }

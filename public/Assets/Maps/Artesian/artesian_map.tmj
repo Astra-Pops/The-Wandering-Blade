@@ -47,6 +47,11 @@
               "name": "collides",
               "type": "bool",
               "value": true
+            },
+            {
+              "name": "collidable",
+              "type": "bool",
+              "value": true
             }
           ]
         },
@@ -70,6 +75,11 @@
             },
             {
               "name": "collides",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "collidable",
               "type": "bool",
               "value": true
             }
@@ -97,6 +107,11 @@
               "name": "collides",
               "type": "bool",
               "value": true
+            },
+            {
+              "name": "collidable",
+              "type": "bool",
+              "value": true
             }
           ]
         },
@@ -120,6 +135,11 @@
             },
             {
               "name": "collides",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "collidable",
               "type": "bool",
               "value": true
             }
@@ -147,6 +167,11 @@
               "name": "collides",
               "type": "bool",
               "value": true
+            },
+            {
+              "name": "collidable",
+              "type": "bool",
+              "value": true
             }
           ]
         },
@@ -172,6 +197,11 @@
               "name": "collides",
               "type": "bool",
               "value": true
+            },
+            {
+              "name": "collidable",
+              "type": "bool",
+              "value": true
             }
           ]
         },
@@ -195,6 +225,11 @@
             },
             {
               "name": "collides",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "collidable",
               "type": "bool",
               "value": true
             }
@@ -357,6 +392,11 @@
               "name": "collides",
               "type": "bool",
               "value": true
+            },
+            {
+              "name": "collidable",
+              "type": "bool",
+              "value": true
             }
           ]
         },
@@ -380,6 +420,11 @@
             },
             {
               "name": "collides",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "collidable",
               "type": "bool",
               "value": true
             }
@@ -407,6 +452,11 @@
               "name": "collides",
               "type": "bool",
               "value": true
+            },
+            {
+              "name": "collidable",
+              "type": "bool",
+              "value": true
             }
           ]
         },
@@ -430,6 +480,11 @@
             },
             {
               "name": "collides",
+              "type": "bool",
+              "value": true
+            },
+            {
+              "name": "collidable",
               "type": "bool",
               "value": true
             }
